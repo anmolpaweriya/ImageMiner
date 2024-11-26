@@ -1,0 +1,1 @@
+export const api = "https://imageminer.publicvm.com"
