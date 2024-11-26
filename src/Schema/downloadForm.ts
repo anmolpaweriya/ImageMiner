@@ -20,7 +20,7 @@ const DownloadFormSchema = z.object({
         .min(1, { message: 'Download Attribute Name cannot be empty.' }),
 }).refine((data) => {
     // Only validate if both start and end are provided
-    if (data.start && data.end) {
+    if (data.link.includes("{}")) {
         const start = Number(data.start);
         const end = Number(data.end);
 

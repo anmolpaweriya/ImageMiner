@@ -147,11 +147,9 @@ export function DownloadDialog(props: DownloadDialogProps) {
         setDownloadingItems(() => [...downloadList.current]);
         const item = downloadItems[0]
         await downloadPDF(item.id!, item.name, item.downloadUrl)
-
-
-
-
     }
+
+
     return (
         <Dialog open={props.open} onOpenChange={props.setIsOpen}>
             <DialogContent className="sm:max-w-[625px]">

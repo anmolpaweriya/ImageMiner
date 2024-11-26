@@ -87,7 +87,10 @@ export default function DownloadSection() {
                                             {...field}
                                             placeholder="https://example.com/page"
                                             type='url'
-                                            onChange={val => setLink(val.target.value)}
+                                            onChange={val => {
+                                                form.setValue('link', val.target.value)
+                                                setLink(val.target.value)
+                                            }}
                                             value={link}
                                             required
 
