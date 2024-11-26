@@ -6,6 +6,7 @@ import download from 'downloadjs';
 import { Download } from 'lucide-react';
 import { Loader2 } from "lucide-react"
 import { Clock } from 'lucide-react';
+import { CircleX } from 'lucide-react';
 
 
 
@@ -15,6 +16,7 @@ import {
     Dialog,
     DialogContent,
     DialogDescription,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
@@ -135,6 +137,11 @@ export function DownloadDialog(props: DownloadDialogProps) {
         downloadList.current = downloadList.current.filter(val => val != id)
         setDownloadingItems(() => [...downloadList.current]);
     }
+    function removeAllItemFromDownloadList() {
+        if (!currentDownloadItem) return;
+        downloadList.current = [currentDownloadItem]
+        setDownloadingItems(() => [currentDownloadItem]);
+    }
     async function downloadAll() {
         downloadList.current = downloadItems.map(({ id }) => id)
         setDownloadingItems(() => [...downloadList.current]);
@@ -177,7 +184,17 @@ export function DownloadDialog(props: DownloadDialogProps) {
 
                                     return <TableRow key={item.id}>
                                         <TableCell className="font-medium">{item.name}</TableCell>
-                                        <TableCell className="text-right">
+                                        <TableCell className="text-right flex gap-2 justify-end">
+
+                                            {
+                                                isDownloading
+                                                &&
+                                                currentDownloadItem != item.id
+                                                &&
+                                                <Button variant={"destructive"}
+                                                    onClick={() => removeItemFromDownloadList(item.id)}
+                                                ><CircleX /></Button>
+                                            }
                                             <Button
                                                 variant="outline"
                                                 size="sm"
@@ -201,6 +218,7 @@ export function DownloadDialog(props: DownloadDialogProps) {
                                                 }
                                                 Download
                                             </Button>
+
                                         </TableCell>
                                     </TableRow>
                                 }
@@ -209,7 +227,17 @@ export function DownloadDialog(props: DownloadDialogProps) {
                         </Table>
                     </ScrollArea>
                 </div>
+                <DialogFooter>
+                    {downloadingItems.length > 1
+                        &&
+                        <Button
+                            variant={'destructive'}
+                            onClick={removeAllItemFromDownloadList}
+                        >Cancel All</Button>
+                    }
+                </DialogFooter>
             </DialogContent>
+
         </Dialog>
     )
 }
