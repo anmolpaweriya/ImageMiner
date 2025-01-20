@@ -23,7 +23,7 @@ export default function DownloadSection() {
         link: "",
         start: "0",
         end: "0",
-        increment: "1",
+        increment: 1,
         compareAttributeName: "class",
         compareAttributeValue: "",
         downloadAttributeName: "src"
@@ -153,6 +153,7 @@ export default function DownloadSection() {
                                                 <Input
                                                     type="number"
                                                     min={0}
+                                                    step="0.1"
                                                     {...field} />
                                             </FormControl>
                                             <FormMessage />

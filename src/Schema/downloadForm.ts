@@ -8,7 +8,10 @@ const DownloadFormSchema = z.object({
 
     end: z.string().optional(),
 
-    increment: z.string().optional(),
+    increment: z.preprocess(
+        (val) => (typeof val === 'string' ? parseFloat(val) : val),
+        z.number().min(0).optional()
+    ),
 
     compareAttributeName: z.string()
         .min(1, { message: 'Compare Attribute Name cannot be empty.' }),

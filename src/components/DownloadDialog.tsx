@@ -69,12 +69,14 @@ export function DownloadDialog(props: DownloadDialogProps) {
     }];
 
     if (isTemplate) {
-        for (let id = Number(props.data.start!); id <= Number(props.data.end!); id += Number(props.data.increment))
+        for (let id = Number(props.data.start!); id <= Number(props.data.end!); id += Number(props.data.increment)) {
+            const roundedId = Math.round(id * 100) / 100; // Rounding to 2 decimal places
             downloadItems.push({
-                id,
-                name: `${props.data.name}-${id}`,
-                downloadUrl: props.data.link.replace("{}", `${id}`)
-            })
+                id: roundedId,
+                name: `${props.data.name}-${roundedId}`,
+                downloadUrl: props.data.link.replace("{}", `${roundedId}`)
+            });
+        }
     }
 
 
